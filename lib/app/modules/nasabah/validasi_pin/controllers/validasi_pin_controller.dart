@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../../../data/model/user_model.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../../../constant/constant.dart';
+import '../../home/controllers/home_controller.dart';
+import '../service/validasi_pin_service.dart';
+import '../../setor_tunai/controllers/setor_tunai_controller.dart'; // Import SetorTunaiController
+import '../../tarik_tunai/controllers/tarik_tunai_controller.dart'; // Import TarikTunaiController
 
 class ValidasiPinController extends GetxController {
+  PasswordService passwordService = PasswordService();
   final formKey = GlobalKey<FormState>();
   final pinController = TextEditingController();
   final focusNode = FocusNode();
 
-  late String userPassword;
+  Rx<Login?> loggedInUser = Rx<Login?>(null);
+
+  // Flag untuk menentukan jenis transaksi
+  RxBool isSetorTunai = true
+      .obs; // Default setor tunai // **Perubahan: Menambahkan flag isSetorTunai**
+
+  @override
+  void onInit() {
+    super.onInit();
+    Get.lazyPut<HomeController>(() => HomeController());
+    loggedInUser.value = Get.find<HomeController>().loggedInUser.value;
+  }
 
   @override
   void onClose() {
@@ -18,19 +33,33 @@ class ValidasiPinController extends GetxController {
     super.onClose();
   }
 
-  void completePin(String pin) {
-    userPassword = pin; // Menyimpan inputan user ke dalam variabel
-    if (pin == '123456') {
-      // Validasi PIN (contoh PIN yang benar)
-      Get.offAllNamed(Routes.DETAIL_TRANSAKSI);
+  Future<void> cekUserPassword() async {
+    bool passwordCorrect = await passwordService.cekPassword(
+        loggedInUser.value!.username, pinController.text);
+    if (passwordCorrect) {
+      // Password sesuai
+      print("Password matches!");
+      print(isSetorTunai.value);
+
+      // Menentukan transaksi yang akan dijalankan
+      if (isSetorTunai.value) {
+        // **Perubahan: Memeriksa flag isSetorTunai**
+        // Jika setor tunai
+        Get.find<SetorTunaiController>().doSetorTunai();
+        Get.offNamed(Routes.SETOR_TUNAI);
+      } else {
+        // Jika tarik tunai
+        Get.find<TarikTunaiController>().doTarikTunai();
+        Get.offNamed(Routes.TARIK_TUNAI);
+      }
+      resetPinController();
     } else {
-      Get.snackbar(
-        'Error',
-        'Password salah',
-        backgroundColor: Error.mainColor,
-        colorText: White.white_50,
-      );
-      pinController.clear();
+      // Password tidak sesuai
+      print("Incorrect username or password.");
     }
+  }
+
+  void resetPinController() {
+    pinController.clear(); // Membersihkan nilai input
   }
 }

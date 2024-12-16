@@ -113,7 +113,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SETOR_TUNAI_ADMIN,
-      page: () => const SetorTunaiAdminView(),
+      page: () => SetorTunaiAdminView(),
       binding: SetorTunaiAdminBinding(),
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 200),

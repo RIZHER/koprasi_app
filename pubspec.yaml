@@ -1,10 +1,10 @@
 name: koperasi_app
 description: "A new Flutter project."
-publish_to: "none"
+publish_to: 'none'
 version: 1.0.0+1
-environment:
-  sdk: ^3.5.4
 
+environment:
+  sdk: ^3.6.0
 dependencies:
   flutter:
     sdk: flutter
@@ -16,6 +16,8 @@ dependencies:
   pinput: ^5.0.0
   dio: ^5.7.0
   logger: ^2.5.0
+  supabase_flutter: ^2.8.1
+  # get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:

@@ -7,8 +7,9 @@ import 'package:koperasi_app/utils/global_components/main_button.dart';
 
 import '../../../../../constant/constant.dart';
 import '../../../../routes/app_pages.dart';
+import '../controllers/daftarkan_nasabah_controller.dart';
 
-class DetailRegistrasiView extends GetView {
+class DetailRegistrasiView extends GetView<DaftarkanNasabahController> {
   const DetailRegistrasiView({super.key});
   @override
   Widget build(BuildContext context) {
@@ -55,7 +56,7 @@ class DetailRegistrasiView extends GetView {
             ),
             Gap(25),
             Text(
-              "Username : ANANDAPUTRA69",
+              "Username : ${controller.username}",
               style: regular.copyWith(
                 fontSize: 16,
                 color: Black.black_500,

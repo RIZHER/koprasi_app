@@ -288,12 +288,14 @@ class HomeView extends GetView<HomeController> {
                           ],
                         ),
                         controller.historyUser.isEmpty
-                            ? Center(
-                                child: Text(
-                                  "Belum ada transaksi",
-                                  style: regular.copyWith(
-                                    fontSize: 16,
-                                    color: Colors.grey,
+                            ? Expanded(
+                                child: Center(
+                                  child: Text(
+                                    "Belum ada transaksi",
+                                    style: regular.copyWith(
+                                      fontSize: 16,
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 ),
                               )

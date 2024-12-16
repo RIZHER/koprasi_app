@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
-import 'package:koperasi_app/app/routes/app_pages.dart';
 import 'package:koperasi_app/utils/global_components/main_button.dart';
 import 'package:koperasi_app/utils/global_components/text_input_field.dart';
 
@@ -37,74 +36,92 @@ class DaftarkanNasabahView extends GetView<DaftarkanNasabahController> {
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Isi Data Berikut Untuk Mendaftarkan Nasabah KoNT.",
-              style: semiBold.copyWith(
-                fontSize: 16,
-                color: Black.black_500,
+        child: SingleChildScrollView(
+          controller: ScrollController(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Isi Data Berikut Untuk Mendaftarkan Nasabah KoNT.",
+                style: semiBold.copyWith(
+                  fontSize: 16,
+                  color: Black.black_500,
+                ),
               ),
-            ),
-            Gap(30),
-            Text(
-              "Nama Lengkap",
-              style: regular.copyWith(
-                fontSize: 14,
-                color: Black.black_500,
+              Gap(30),
+              Text(
+                "Nama Lengkap",
+                style: regular.copyWith(
+                  fontSize: 14,
+                  color: Black.black_500,
+                ),
               ),
-            ),
-            Gap(5),
-            InputField(title: 'Masukkan nama'),
-            Gap(20),
-            Text(
-              "Username",
-              style: regular.copyWith(
-                fontSize: 14,
-                color: Black.black_500,
+              Gap(5),
+              InputField(
+                onChanged: controller.namaLengkap,
+                title: 'Masukkan nama',
               ),
-            ),
-            Gap(5),
-            InputField(title: 'Masukkan username'),
-            Gap(20),
-            Text(
-              "No KTP",
-              style: regular.copyWith(
-                fontSize: 14,
-                color: Black.black_500,
+              Gap(20),
+              Text(
+                "Username",
+                style: regular.copyWith(
+                  fontSize: 14,
+                  color: Black.black_500,
+                ),
               ),
-            ),
-            Gap(5),
-            InputField(title: 'Masukkan no KTP'),
-            Gap(20),
-            Text(
-              "Nama Gadis Ibu Kandung",
-              style: regular.copyWith(
-                fontSize: 14,
-                color: Black.black_500,
+              Gap(5),
+              InputField(
+                onChanged: controller.userName,
+                title: 'Masukkan username',
               ),
-            ),
-            Gap(5),
-            InputField(title: 'Masukkan nama ibu'),
-            Gap(20),
-            Text(
-              "Alamat Lengkap",
-              style: regular.copyWith(
-                fontSize: 14,
-                color: Black.black_500,
+              Gap(20),
+              Text(
+                "No KTP",
+                style: regular.copyWith(
+                  fontSize: 14,
+                  color: Black.black_500,
+                ),
               ),
-            ),
-            Gap(5),
-            InputField(title: 'Masukkan alamat'),
-            Gap(60),
-            MainButton(
-              onTap: () {
-                Get.toNamed(Routes.DETAIL_REGISTRASI_NASABAH);
-              },
-              label: 'Daftarkan',
-            ),
-          ],
+              Gap(5),
+              InputField(
+                onChanged: controller.noKtp,
+                title: 'Masukkan no KTP',
+              ),
+              Gap(20),
+              Text(
+                "Nama Gadis Ibu Kandung",
+                style: regular.copyWith(
+                  fontSize: 14,
+                  color: Black.black_500,
+                ),
+              ),
+              Gap(5),
+              InputField(
+                onChanged: controller.namaIbu,
+                title: 'Masukkan nama ibu',
+              ),
+              Gap(20),
+              Text(
+                "Alamat Lengkap",
+                style: regular.copyWith(
+                  fontSize: 14,
+                  color: Black.black_500,
+                ),
+              ),
+              Gap(5),
+              InputField(
+                onChanged: controller.Alamat,
+                title: 'Masukkan alamat',
+              ),
+              Gap(60),
+              MainButton(
+                onTap: () {
+                  controller.doRegister();
+                },
+                label: 'Daftarkan',
+              ),
+            ],
+          ),
         ),
       ),
     );

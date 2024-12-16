@@ -301,12 +301,14 @@ class HomeAdminView extends GetView<HomeAdminController> {
                       ),
                       Gap(5),
                       controller.historyAdmin.isEmpty
-                          ? Center(
-                              child: Text(
-                                "Belum ada transaksi",
-                                style: regular.copyWith(
-                                  fontSize: 16,
-                                  color: Colors.grey,
+                          ? Expanded(
+                              child: Center(
+                                child: Text(
+                                  "Belum ada transaksi",
+                                  style: regular.copyWith(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ),
                             )

@@ -57,9 +57,7 @@ class HistoryTransaksiAdminView extends GetView<HomeAdminController> {
         return Padding(
           padding: const EdgeInsets.all(20),
           child: ListView.builder(
-            itemCount: controller.historyAdmin.length > 4
-                ? 4
-                : controller.historyAdmin.length,
+            itemCount: controller.historyAdmin.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               final transaksi = controller.historyAdmin[index];

@@ -74,7 +74,7 @@ class LoginController extends GetxController with VerificationCodeMixin {
                             _showSnackbar(
                               title: 'Success',
                               message: 'Berhasil Login',
-                              color: Color(Success.mainColor.value),
+                              color: Success.mainColor,
                             );
                           } else {
                             // Jika PIN kurang dari 6 digit

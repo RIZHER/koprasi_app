@@ -9,13 +9,15 @@ import '../../../../routes/app_pages.dart';
 import '../controllers/tarik_tunai_controller.dart';
 
 class TarikTunaiView extends GetView<TarikTunaiController> {
+  final TarikTunaiController tarikTunaiController =
+      Get.put(TarikTunaiController());
   final List<String> nominalList = [
-    "50.000",
-    "100.000",
-    "150.000",
-    "200.000",
-    "300.000",
-    "500.000",
+    "50000",
+    "100000",
+    "150000",
+    "200000",
+    "300000",
+    "500000",
   ];
 
   TarikTunaiView({super.key});
@@ -150,6 +152,7 @@ class TarikTunaiView extends GetView<TarikTunaiController> {
                   // Tindakan lanjut
                   print(
                       "Nominal yang dipilih: ${controller.textController.text}");
+                  controller.cekPass();
                   Get.toNamed(Routes.VALIDASI_PIN);
                 },
                 label: 'Lanjut',

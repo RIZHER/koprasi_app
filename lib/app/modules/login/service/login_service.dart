@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
+// import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
 import '../../../data/api.dart';
-
 import '../../../data/model/user_model.dart';
 
 class LoginService {
@@ -9,6 +9,8 @@ class LoginService {
   final String _baseUrl = baseUrl;
   final String _apiKey = apiKey;
   final Logger logger = Logger();
+
+  // final _storage = GetStorage();
 
   Future<Login?> loginUsers(String username, String password) async {
     var baseUrl =
@@ -23,11 +25,19 @@ class LoginService {
           },
         ),
       );
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         logger.i('Success get users');
         logger.i(response.data);
+
         if (response.data.isNotEmpty) {
-          return Login.fromJson(response.data[0]); // Ambil objek pertama
+          // Ambil ID dari response dan simpan ke GetStorage
+          final id = response.data[0]['id'];
+          // _storage.write('id', id); // Simpan id ke GetStorage
+          logger.i('ID saved to GetStorage: $id');
+
+          // Return Login model
+          return Login.fromJson(response.data[0]);
         } else {
           logger.e('User not found');
           return null;

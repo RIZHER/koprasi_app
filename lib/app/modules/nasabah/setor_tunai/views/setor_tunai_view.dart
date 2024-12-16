@@ -9,6 +9,8 @@ import '../../../../routes/app_pages.dart';
 import '../controllers/setor_tunai_controller.dart';
 
 class SetorTunaiView extends GetView<SetorTunaiController> {
+  final SetorTunaiController setorTunaiController =
+      Get.put(SetorTunaiController());
   final List<String> nominalList = [
     "50000",
     "100000",
@@ -149,6 +151,8 @@ class SetorTunaiView extends GetView<SetorTunaiController> {
                   // Tindakan lanjut
                   print(
                       "Nominal yang dipilih: ${controller.textController.text}");
+                  controller.cekPass();
+                  // Jika berhasil
                   Get.toNamed(Routes.VALIDASI_PIN);
                 },
                 label: 'Lanjut',

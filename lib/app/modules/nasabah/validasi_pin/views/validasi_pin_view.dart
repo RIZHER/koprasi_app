@@ -78,7 +78,7 @@ class ValidasiPinView extends GetView<ValidasiPinController> {
               MainButton(
                 onTap: () {
                   if (controller.formKey.currentState?.validate() ?? false) {
-                    controller.completePin(controller.pinController.text);
+                    controller.cekUserPassword();
                   }
                 },
                 label: 'Submit',

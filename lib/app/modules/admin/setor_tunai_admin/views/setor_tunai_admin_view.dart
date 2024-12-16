@@ -10,7 +10,14 @@ import '../../../../../constant/constant.dart';
 import '../controllers/setor_tunai_admin_controller.dart';
 
 class SetorTunaiAdminView extends GetView<SetorTunaiAdminController> {
-  const SetorTunaiAdminView({super.key});
+  final SetorTunaiAdminController setorTunaiAdminController =
+      Get.put(SetorTunaiAdminController());
+
+  // Controller untuk input
+  final TextEditingController noKtpController = TextEditingController();
+  final TextEditingController kodeTransaksiController = TextEditingController();
+  final TextEditingController namaKantorController = TextEditingController();
+  SetorTunaiAdminView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +62,10 @@ class SetorTunaiAdminView extends GetView<SetorTunaiAdminController> {
               ),
             ),
             Gap(5),
-            InputField(title: 'Masukkan no KTP'),
+            InputField(
+              controller: noKtpController,
+              title: 'Masukkan no KTP',
+            ),
             Gap(15),
             Text(
               "Kode Transaksi",
@@ -65,11 +75,18 @@ class SetorTunaiAdminView extends GetView<SetorTunaiAdminController> {
               ),
             ),
             Gap(5),
-            InputField(title: 'Masukkan kode transaksi'),
+            InputField(
+              controller: kodeTransaksiController,
+              title: 'Masukkan kode transaksi',
+            ),
             Gap(40),
             MainButton(
               onTap: () {
-                controller.doSetor();
+                controller.validateTransaction(
+                  noKtp: int.parse(noKtpController.text),
+                  kodeTransaksi: int.parse(kodeTransaksiController.text),
+                  namaKantor: 'KoNT Kebo Iwa DPS',
+                );
               },
               label: 'Lanjut',
             ),

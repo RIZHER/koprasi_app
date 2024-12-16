@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../data/api.dart';
 
-class HistoryAdminService {
+class HistoryAdminService extends GetxService {
   final Dio _dio = Dio();
   final String _baseUrl = baseUrl;
   final String _apiKey = apiKey;
