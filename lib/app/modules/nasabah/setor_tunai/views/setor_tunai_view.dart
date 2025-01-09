@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:koperasi_app/utils/global_components/main_button.dart';
 
 import '../../../../../constant/constant.dart';
@@ -19,6 +20,8 @@ class SetorTunaiView extends GetView<SetorTunaiController> {
     "300000",
     "500000",
   ];
+  final formatuang =
+      NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 2);
 
   SetorTunaiView({super.key});
 
@@ -78,7 +81,7 @@ class SetorTunaiView extends GetView<SetorTunaiController> {
                       ),
                     ),
                     Text(
-                      "RP 2.500.000,00",
+                      formatuang.format(controller.loggedInUser.value!.saldo),
                       style: semiBold.copyWith(
                         fontSize: 20,
                         color: White.white_50,
@@ -152,8 +155,6 @@ class SetorTunaiView extends GetView<SetorTunaiController> {
                   print(
                       "Nominal yang dipilih: ${controller.textController.text}");
                   controller.cekPass();
-                  // Jika berhasil
-                  Get.toNamed(Routes.VALIDASI_PIN);
                 },
                 label: 'Lanjut',
               )

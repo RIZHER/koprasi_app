@@ -1,23 +1,16 @@
 import 'package:get/get.dart';
 
 class DetailTransaksiController extends GetxController {
-  //TODO: Implement DetailTransaksiController
+  RxString no_ktp = ''.obs;
+  RxString kode_ransaksi = ''.obs;
+  RxInt nominal = 0.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void setDetailTransaksi(
+      {required RxString noktp,
+      required RxString kodeTransaksi,
+      required RxInt nominalUang}) {
+    no_ktp = noktp;
+    kode_ransaksi = kodeTransaksi;
+    nominal = nominalUang;
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

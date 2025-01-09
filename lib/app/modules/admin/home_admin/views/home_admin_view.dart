@@ -314,6 +314,7 @@ class HomeAdminView extends GetView<HomeAdminController> {
                             )
                           : Expanded(
                               child: ListView.builder(
+                                padding: EdgeInsets.all(0),
                                 itemCount: controller.historyAdmin.length > 4
                                     ? 4
                                     : controller.historyAdmin.length,

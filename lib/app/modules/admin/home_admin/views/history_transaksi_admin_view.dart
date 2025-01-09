@@ -38,47 +38,55 @@ class HistoryTransaksiAdminView extends GetView<HomeAdminController> {
           },
         ),
       ),
-      body: Obx(() {
-        if (controller.historyAdmin.value == null ||
-            controller.historyAdmin.value.isEmpty) {
-          // Jika data kosong, tampilkan pesan
-          return Center(
-            child: Text(
-              "Belum ada transaksi",
-              style: regular.copyWith(
-                fontSize: 16,
-                color: Colors.grey,
+      body: Obx(
+        () {
+          if (controller.historyAdmin.value == null ||
+              controller.historyAdmin.value.isEmpty) {
+            // Jika data kosong, tampilkan pesan
+            return Center(
+              child: Text(
+                "Belum ada transaksi",
+                style: regular.copyWith(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+            );
+          }
+
+          // Jika ada data, tampilkan dalam ListView
+          return Padding(
+            padding: const EdgeInsets.all(20),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                // Fungsi untuk me-refresh data
+                await controller.fetchHistory();
+              },
+              child: ListView.builder(
+                itemCount: controller.historyAdmin.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final transaksi = controller.historyAdmin[index];
+                  String formattedSaldo =
+                      NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ')
+                          .format(transaksi.jumlahTransaksi);
+                  return historyTransaksi(
+                    jenisTransaksi: transaksi.jenisTransaksi,
+                    kantor: transaksi.kantor, // Ubah sesuai data
+                    waktu: '10 Desember 2024 14:31 WITA', // Format waktu
+                    jumlahTransaksi: transaksi.jenisTransaksi == 'Setor Tunai'
+                        ? '+ ${formattedSaldo}'
+                        : '- ${formattedSaldo}',
+                    statusuang: transaksi.jenisTransaksi == 'Setor Tunai'
+                        ? 'Uang Masuk'
+                        : 'Uang Keluar',
+                  );
+                },
               ),
             ),
           );
-        }
-
-        // Jika ada data, tampilkan dalam ListView
-        return Padding(
-          padding: const EdgeInsets.all(20),
-          child: ListView.builder(
-            itemCount: controller.historyAdmin.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final transaksi = controller.historyAdmin[index];
-              String formattedSaldo =
-                  NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ')
-                      .format(transaksi.jumlahTransaksi);
-              return historyTransaksi(
-                jenisTransaksi: transaksi.jenisTransaksi,
-                kantor: transaksi.kantor, // Ubah sesuai data
-                waktu: '10 Desember 2024 14:31 WITA', // Format waktu
-                jumlahTransaksi: transaksi.jenisTransaksi == 'Setor Tunai'
-                    ? '+ ${formattedSaldo}'
-                    : '- ${formattedSaldo}',
-                statusuang: transaksi.jenisTransaksi == 'Setor Tunai'
-                    ? 'Uang Masuk'
-                    : 'Uang Keluar',
-              );
-            },
-          ),
-        );
-      }),
+        },
+      ),
     );
   }
 }

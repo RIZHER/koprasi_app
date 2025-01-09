@@ -1,6 +1,6 @@
 name: koperasi_app
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -17,7 +17,14 @@ dependencies:
   dio: ^5.7.0
   logger: ^2.5.0
   supabase_flutter: ^2.8.1
-  # get_storage: ^2.1.1
+  flutter_launcher_icons: "^0.14.2"
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/images/icon.png"
 
 dev_dependencies:
   flutter_test:

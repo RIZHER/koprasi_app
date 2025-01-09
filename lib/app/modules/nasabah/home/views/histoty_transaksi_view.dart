@@ -55,28 +55,32 @@ class HistotyTransaksiView extends GetView<HomeController> {
         // Jika ada data, tampilkan dalam ListView
         return Padding(
           padding: const EdgeInsets.all(20),
-          child: ListView.builder(
-            itemCount: controller.historyUser.length > 4
-                ? 4
-                : controller.historyUser.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final transaksi = controller.historyUser[index];
-              String formattedSaldo =
-                  NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ')
-                      .format(transaksi.jumlahTransaksi);
-              return historyTransaksi(
-                jenisTransaksi: transaksi.jenisTransaksi,
-                kantor: transaksi.kantor, // Ubah sesuai data
-                waktu: '10 Desember 2024 14:31 WITA', // Format waktu
-                jumlahTransaksi: transaksi.jenisTransaksi == 'Setor Tunai'
-                    ? '+ ${formattedSaldo}'
-                    : '- ${formattedSaldo}',
-                statusuang: transaksi.jenisTransaksi == 'Setor Tunai'
-                    ? 'Uang Masuk'
-                    : 'Uang Keluar',
-              );
+          child: RefreshIndicator(
+            onRefresh: () async {
+              // Fungsi untuk me-refresh data
+              await controller.fetchHistory();
             },
+            child: ListView.builder(
+              itemCount: controller.historyUser.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final transaksi = controller.historyUser[index];
+                String formattedSaldo =
+                    NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ')
+                        .format(transaksi.jumlahTransaksi);
+                return historyTransaksi(
+                  jenisTransaksi: transaksi.jenisTransaksi,
+                  kantor: transaksi.kantor, // Ubah sesuai data
+                  waktu: '10 Desember 2024 14:31 WITA', // Format waktu
+                  jumlahTransaksi: transaksi.jenisTransaksi == 'Setor Tunai'
+                      ? '+ ${formattedSaldo}'
+                      : '- ${formattedSaldo}',
+                  statusuang: transaksi.jenisTransaksi == 'Setor Tunai'
+                      ? 'Uang Masuk'
+                      : 'Uang Keluar',
+                );
+              },
+            ),
           ),
         );
       }),

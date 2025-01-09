@@ -10,7 +10,14 @@ import '../../../../../utils/global_components/text_input_field.dart';
 import '../controllers/tarik_tunai_admin_controller.dart';
 
 class TarikTunaiAdminView extends GetView<TarikTunaiAdminController> {
-  const TarikTunaiAdminView({super.key});
+  final TarikTunaiAdminController tarikTunaiAdminController =
+      Get.put(TarikTunaiAdminController());
+
+  // Controller untuk input
+  final TextEditingController noKtpController = TextEditingController();
+  final TextEditingController kodeTransaksiController = TextEditingController();
+  final TextEditingController namaKantorController = TextEditingController();
+  TarikTunaiAdminView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +62,10 @@ class TarikTunaiAdminView extends GetView<TarikTunaiAdminController> {
               ),
             ),
             Gap(5),
-            InputField(title: 'Masukkan no KTP'),
+            InputField(
+              controller: noKtpController,
+              title: 'Masukkan no KTP',
+            ),
             Gap(15),
             Text(
               "Kode Transaksi",
@@ -65,11 +75,18 @@ class TarikTunaiAdminView extends GetView<TarikTunaiAdminController> {
               ),
             ),
             Gap(5),
-            InputField(title: 'Masukkan kode transaksi'),
+            InputField(
+              controller: kodeTransaksiController,
+              title: 'Masukkan kode transaksi',
+            ),
             Gap(40),
             MainButton(
               onTap: () {
-                controller.doSetor();
+                controller.validateTransaction(
+                  noKtp: int.parse(noKtpController.text),
+                  kodeTransaksi: int.parse(kodeTransaksiController.text),
+                  namaKantor: 'KoNT Kebo Iwa DPS',
+                );
               },
               label: 'Lanjut',
             ),

@@ -8,9 +8,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../routes/app_pages.dart';
 
 class SetorTunaiAdminController extends GetxController {
-  // Future<void> doSetor() async {
-
-  // }
   var resultMessage = ''.obs;
 
   Future<void> validateTransaction({

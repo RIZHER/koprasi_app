@@ -85,7 +85,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DETAIL_TRANSAKSI,
-      page: () => const DetailTransaksiView(),
+      page: () => DetailTransaksiView(),
       binding: DetailTransaksiBinding(),
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 200),
@@ -106,7 +106,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TARIK_TUNAI_ADMIN,
-      page: () => const TarikTunaiAdminView(),
+      page: () => TarikTunaiAdminView(),
       binding: TarikTunaiAdminBinding(),
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 200),

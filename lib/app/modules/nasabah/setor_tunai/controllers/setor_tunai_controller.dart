@@ -5,6 +5,7 @@ import 'dart:math';
 import '../../../../../constant/constant.dart';
 import '../../../../data/model/user_model.dart';
 import '../../../../routes/app_pages.dart';
+import '../../detail_transaksi/controllers/detail_transaksi_controller.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../validasi_pin/controllers/validasi_pin_controller.dart';
 import '../service/setor_tunai_service.dart';
@@ -19,6 +20,7 @@ class SetorTunaiController extends GetxController {
     Get.lazyPut<HomeController>(() => HomeController());
     loggedInUser.value = Get.find<HomeController>().loggedInUser.value;
     Get.lazyPut<ValidasiPinController>(() => ValidasiPinController());
+    Get.lazyPut<DetailTransaksiController>(() => DetailTransaksiController());
   }
 
   // Controller untuk TextField
@@ -33,6 +35,7 @@ class SetorTunaiController extends GetxController {
     // Mengubah flag isSetorTunai menjadi true untuk menunjuk transaksi setor tunai
     Get.find<ValidasiPinController>().isSetorTunai.value =
         true; // **Perubahan: Mengubah flag isSetorTunai menjadi true**
+    Get.toNamed(Routes.VALIDASI_PIN);
   }
 
   void onClose() {
@@ -63,6 +66,11 @@ class SetorTunaiController extends GetxController {
           kantor: '');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.find<DetailTransaksiController>().setDetailTransaksi(
+          noktp: loggedInUser.value!.noKtp.toString().obs,
+          kodeTransaksi: randomCode.obs,
+          nominalUang: int.parse(textController.text).obs,
+        );
         // Jika berhasil
         Get.toNamed(Routes.DETAIL_TRANSAKSI);
         // Pindah ke halaman detail

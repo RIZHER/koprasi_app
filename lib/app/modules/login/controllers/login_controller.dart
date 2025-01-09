@@ -69,11 +69,10 @@ class LoginController extends GetxController with VerificationCodeMixin {
                             loginService.updatePassword(
                                 user.id, pin.toString());
                             // Get.back(); // Menutup dialog
-                            Get.offNamed(
-                                Routes.HOME); // Navigasi ke halaman Home
+                            Get.back(); // Navigasi ke halaman Home
                             _showSnackbar(
                               title: 'Success',
-                              message: 'Berhasil Login',
+                              message: 'Berhasil Mengganti Password',
                               color: Success.mainColor,
                             );
                           } else {

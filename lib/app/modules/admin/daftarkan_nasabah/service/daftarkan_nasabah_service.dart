@@ -35,7 +35,6 @@ class AddNewUserService extends GetxService {
           "nama_lengkap": nama_lengkap,
           "nama_ibu": nama_ibu,
           "alamat": alamat,
-          "saldo": 0,
           "role": "user"
         },
       );
